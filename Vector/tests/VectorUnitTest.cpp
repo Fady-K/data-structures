@@ -92,7 +92,7 @@ TEST_F(VectorTest, MoveConstructor) {
     EXPECT_EQ(0, original.size()); // After move, the source vector should be empty
 }
 
-//////////////////////////////////////////////////////////////// Assignment Operators ////////////////////////////////////
+//////////////////////////////////////////////////////////// Assignment Operators(copy, move) ////////////////////////////////////////////////////////////
 TEST_F(VectorTest, CopyAssignmentOperator) {
     Vector<int> vec1{ 1, 2, 3 };
     Vector<int> vec2{ 4, 5 };
@@ -115,24 +115,6 @@ TEST_F(VectorTest, MoveAssignmentOperator) {
     EXPECT_EQ(vec2.size(), 3);
     EXPECT_EQ(vec1.size(), 0);
 }
-
-
-////////////////////////////////////////////////////////////////  Destructor ////////////////////////////////////
-TEST_F(VectorTest, Destructor_DeallocatesMemory)
-{
-    // Create a vector
-    Vector<int>* vec = new Vector<int>{ 1, 2, 3 };
-
-    // Get the pointer to the underlying data
-    int* dataPtr = vec->Data();
-
-    // Destroy the vector
-    delete vec;
-
-    // Check if the memory was properly deallocated using Google Test's memory leak detection
-    SUCCEED();  // No memory leaks detected
-}
-
 
 
 
