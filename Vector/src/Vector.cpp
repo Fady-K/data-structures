@@ -259,6 +259,24 @@ inline void Vector<T>::Swap(Vector<T>& v)
 	std::swap(m_Capacity, v.m_Capacity);
 	std::swap(m_Data, v.m_Data);
 }
+
+template<class T>
+inline void Vector<T>::Clear()
+{
+	// if vector is already empty do nothing
+	if (Empty()){ return; }
+
+	// clear 
+	for (size_t i = 0; i < m_Size; ++i)
+	{
+		// destruct all element in m_Data
+		m_Data[i].~T();		
+	}
+
+	// set size = 0, capacity still the same, as we have same block of memory
+	m_Size = 0;
+}
+
 template<class T>
 inline T Vector<T>::Erase(const size_t& index)
 {
