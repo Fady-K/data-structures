@@ -29,6 +29,7 @@ public:
 	Vector<T>&& operator=(const Vector<T>&&);						// move assignment operator
 	~Vector() noexcept;														// destructor
 
+
 	// Capacity, Size
 	size_t size() const;
 	size_t capacity() const;
@@ -66,9 +67,6 @@ public:
 	const T& Front() const;
 	T* Data();
 	const T* Data() const;
-
-	
-	
 
 
 
