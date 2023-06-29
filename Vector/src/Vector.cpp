@@ -2,7 +2,11 @@
 
 ////////////////////////////////////////////// Constructors //////////////////////////////////////////////////////
 template<class T>
-inline Vector<T>::Vector() : m_Data(nullptr), m_Size(0), m_Capacity(0) {}
+inline Vector<T>::Vector() : m_Data(nullptr), m_Size(0), m_Capacity(0)
+{
+	// initially allocate memory whose capacity == 2
+	ReAlloc(2);
+}
 
 template<class T>
 inline Vector<T>::Vector(size_t size, const T& defaultValue) : m_Size(size), m_Capacity(size)
