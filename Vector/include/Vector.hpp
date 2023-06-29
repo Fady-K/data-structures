@@ -46,6 +46,7 @@ public:
 	void Resize(size_t newSize);
 	void Resize(size_t newSize, const T& defaultValue);
 	void Swap(Vector<T>& v);
+	void Clear();
 
 	// Modifiers based iterators
 	T Erase(const size_t& index);
