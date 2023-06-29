@@ -1,14 +1,14 @@
 #include "VectorException.hpp"
 
 //////////////////////////////////////////////// Constructors ///////////////////////////////////////////////
-VectorException::VectorException(): m_Msg(""){}
+VectorException::VectorException() noexcept : m_Msg(""){}
 
-VectorException::VectorException(const std::string& t_Msg): m_Msg(t_Msg){}
+VectorException::VectorException(const std::string& t_Msg) noexcept : m_Msg(t_Msg){}
 
-VectorException::VectorException(const VectorException& otherVector): m_Msg(otherVector.m_Msg){}
+VectorException::VectorException(const VectorException& otherVector) noexcept : m_Msg(otherVector.m_Msg){}
 
 //////////////////////////////////////////////// Assighment Operators ///////////////////////////////////////////////
-VectorException& VectorException::operator=(const VectorException& otherVector)
+VectorException& VectorException::operator=(const VectorException& otherVector) noexcept
 {
     // if not equvalnt copy else returh *this
     if (this != &otherVector)
@@ -24,13 +24,13 @@ VectorException& VectorException::operator=(const VectorException& otherVector)
 VectorException::~VectorException(){}
 
 //////////////////////////////////////////////// Setters and Getters ///////////////////////////////////////////////
-void VectorException::SetMsg(const std::string& m_Msg)
+void VectorException::SetMsg(const std::string& m_Msg) noexcept
 {
     this->m_Msg = m_Msg;
 }
 
 
-const std::string& VectorException::GetMsg() const
+const std::string& VectorException::GetMsg() const noexcept
 {
     return this->m_Msg;    
 }
