@@ -112,7 +112,7 @@ inline Vector<T>&& Vector<T>::operator=(const Vector<T>&& otherVector)
 
 
 template<class T>
-inline Vector<T>::~Vector()
+inline Vector<T>::~Vector() noexcept
 {
 	// delete data raw pointer to prevent memory leak
 	delete[] this->m_Data;
