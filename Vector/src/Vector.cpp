@@ -10,7 +10,7 @@ inline Vector<T>::Vector(size_t size, const T& defaultValue) : m_Size(size), m_C
 	// check size validation
 	if (size < 0)
 	{
-		throw std::invalid_argument("Invalid size: size must be <= 0");
+		throw VectorException("Invalid size: size must be <= 0");
 	}
 
 	// allocate new block of memory of m_capaicty
@@ -372,7 +372,7 @@ const T& Vector<T>::Insert(const size_t& index, const T& element)
 {
 	if (index >= m_Size || index < 0)
 	{
-		throw std::out_of_range("Invalid index: index is out of range!");
+		throw VectorException("Invalid index: index is out of range!");
 	}
 
 	if (m_Size == m_Capacity)
@@ -408,7 +408,7 @@ void Vector<T>::Insert(iterator pos, std::initializer_list<T> elements)
 
 	if (insertIndex > m_Size)
 	{
-		throw std::out_of_range("Invalid position: position is out of range!");
+		throw VectorException("Invalid position: position is out of range!");
 	}
 
 	size_t elementsCount = elements.size();
@@ -456,7 +456,7 @@ inline T& Vector<T>::Back()
 	// if vector is empty throw out of range excpetion
 	if (m_Size == 0)
 	{
-		throw std::out_of_range("Invalid range: vector is empty!");
+		throw VectorException("Invalid range: vector is empty!");
 	}
 
 	return m_Data[m_Size - 1];
@@ -469,7 +469,7 @@ inline const T& Vector<T>::Back() const
 	// if vector is empty throw out of range excpetion
 	if (m_Size == 0)
 	{
-		throw std::out_of_range("Invalid range: vector is empty!");
+		throw VectorException("Invalid range: vector is empty!");
 	}
 
 	return m_Data[m_Size - 1];
@@ -481,7 +481,7 @@ inline T& Vector<T>::Front()
 	// if vector is empty throw out of range excpetion
 	if (m_Size == 0)
 	{
-		throw std::out_of_range("Invalid range: vector is empty!");
+		throw VectorException("Invalid range: vector is empty!");
 	}
 
 	return m_Data[0];
@@ -492,7 +492,7 @@ inline const T& Vector<T>::Front() const
 {
 	if (m_Size == 0)
 	{
-		throw std::out_of_range("Invalid range: vector is empty!");
+		throw VectorException("Invalid range: vector is empty!");
 	}
 
 	return m_Data[0];
@@ -518,7 +518,7 @@ inline const T& Vector<T>::operator[](size_t index) const
 {
 	if (index >= m_Size || index < 0)
 	{
-		throw std::invalid_argument("Invalid index: index is out or range");
+		throw VectorException("Invalid index: index is out or range");
 	}
 
 	return m_Data[index];
@@ -529,7 +529,7 @@ inline T& Vector<T>::operator[](size_t index)
 {
 	if (index >= m_Size || index < 0)
 	{
-		throw std::invalid_argument("Invalid index: index is out of range");
+		throw VectorException("Invalid index: index is out of range");
 	}
 	return m_Data[index];
 }
@@ -690,7 +690,7 @@ Vector<T> Vector<T>::operator*(const Vector<T>& otherVector) const
 	*/
 	if (this->m_Size != otherVector.m_Size)
 	{
-		throw std::invalid_argument("Invalid argument: Vector sizes are not equal");
+		throw VectorException("Invalid argument: Vector sizes are not equal");
 	}
  
 	Vector<T> result(this->m_Size);
@@ -732,7 +732,7 @@ Vector<T> Vector<T>::operator/(const Vector<T>& otherVector) const
 
 	if (this->m_Size != otherVector.m_Size)
 	{
-		throw std::invalid_argument("Invalid argument: Vector sizes are not equal");
+		throw VectorException("Invalid argument: Vector sizes are not equal");
 	}
 
 	Vector<T> result(this->m_Size);
