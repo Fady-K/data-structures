@@ -1,7 +1,7 @@
 #include <iostream>
 #include <exception>
 #include <string>
-using namespace std;
+
 class VectorException: public std::exception
 {
     /* Instane Attributes */
