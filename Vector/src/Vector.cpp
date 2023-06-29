@@ -90,18 +90,19 @@ inline Vector<T>& Vector<T>::operator=(const Vector<T>& otherVector) noexcept
 }
 
 template<class T>
-inline Vector<T>& Vector<T>::operator=(Vector<T>&& otherVector)
+Vector<T>& Vector<T>::operator=(Vector<T>&& otherVector)
 {
-	// if both notSharing same memeory
 	if (this != &otherVector)
 	{
-		// move data from otherVector to this Vector
-		// 1. empty this vector
-		this->m_Size = 0;
-		this->m_Capacity = 0;
-		this->m_Data = nullptr;
+		// Deallocate existing memory in this vector
+		delete[] m_Data;
 
-		// 2. perfom shallow copy (if you won't set otherVecto to default state (empty) both share same memeory (such as alias)
+		// Transfer ownership of data from otherVector to this vector
+		m_Size = otherVector.m_Size;
+		m_Capacity = otherVector.m_Capacity;
+		m_Data = otherVector.m_Data;
+
+		// Reset otherVector to its default state
 		otherVector.m_Size = 0;
 		otherVector.m_Capacity = 0;
 		otherVector.m_Data = nullptr;
@@ -109,6 +110,7 @@ inline Vector<T>& Vector<T>::operator=(Vector<T>&& otherVector)
 
 	return *this;
 }
+
 
 ////////////////////////////////////////////// Destructor /////////////////////////////////////////////////////////////////////////////
 template<class T>
