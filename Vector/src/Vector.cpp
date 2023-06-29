@@ -429,7 +429,7 @@ void Vector<T>::Insert(iterator pos, std::initializer_list<T> elements)
 template<class T>
 inline const T& Vector<T>::operator[](size_t index) const
 {
-	if (index >= m_Size)
+	if (index >= m_Size || index < 0)
 	{
 		throw std::invalid_argument("Invalid index: index is out or range");
 	}
@@ -440,7 +440,7 @@ inline const T& Vector<T>::operator[](size_t index) const
 template<class T>
 inline T& Vector<T>::operator[](size_t index)
 {
-	if (index >= m_Size)
+	if (index >= m_Size || index < 0)
 	{
 		throw std::invalid_argument("Invalid index: index is out of range");
 	}
