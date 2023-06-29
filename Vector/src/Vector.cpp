@@ -1,6 +1,6 @@
 #include "../include/Vector.hpp"
 
-
+////////////////////////////////////////////// Constructors //////////////////////////////////////////////////////
 template<class T>
 inline Vector<T>::Vector() : m_Data(nullptr), m_Size(0), m_Capacity(0) {}
 
@@ -32,9 +32,7 @@ inline Vector<T>::Vector(std::initializer_list<T> values) : m_Size(values.size()
 
 /* Shallow Copy */
 //template<class T>
-//Vector<T>::Vector(const Vector& otherVector) noexcept : m_Size(otherVector.m_Size), m_Capacity(otherVector.m_Capacity), m_Data(otherVector.m_Data)
-//{
-//}
+//Vector<T>::Vector(const Vector& otherVector) noexcept : m_Size(otherVector.m_Size), m_Capacity(otherVector.m_Capacity), m_Data(otherVector.m_Data){}
 
 /* Deep Copy */
 template<class T>
@@ -47,7 +45,23 @@ inline Vector<T>::Vector(const Vector<T>& otherVector) : m_Size(otherVector.m_Si
 	std::copy(otherVector.m_Data, (otherVector.m_Data + otherVector.m_Size), this->m_Data);
 }
 
+template<class T>
+inline Vector<T>::Vector(Vector<T>&& otherVector) noexcept : m_Size(0), m_Capacity(0), m_Data(nullptr)
+{
+	// move data from otherVector to this Vector	
+	// 1. empty this vector 	
+	// 2. pefrom shallow copy
+	this->m_Size = otherVector.m_Size;
+	this->m_Capacity = otherVector.m_Capacity;
+	this->m_Data = otherVector.m_Data;
 
+	// 2. set other vector to it's defualt state (empty state)
+	otherVector.m_Size = 0;
+	otherVector.m_Capacity = 0;
+	otherVector.m_Data = nullptr;
+}
+
+////////////////////////////////////////////// Assignment Operators (copy, move) //////////////////////////////////////////////////////
 template<class T>
 inline Vector<T>& Vector<T>::operator=(const Vector<T>& otherVector) noexcept
 {
@@ -71,24 +85,6 @@ inline Vector<T>& Vector<T>::operator=(const Vector<T>& otherVector) noexcept
 	return *this;
 }
 
-
-template<class T>
-inline Vector<T>::Vector(Vector<T>&& otherVector) noexcept : m_Size(0), m_Capacity(0), m_Data(nullptr)
-{
-	// move data from otherVector to this Vector	
-	// 1. empty this vector 	
-	// 2. pefrom shallow copy
-	this->m_Size = otherVector.m_Size;
-	this->m_Capacity = otherVector.m_Capacity;
-	this->m_Data = otherVector.m_Data;
-
-	// 2. set other vector to it's defualt state (empty state)
-	otherVector.m_Size = 0;
-	otherVector.m_Capacity = 0;
-	otherVector.m_Data = nullptr;
-}
-
-
 template<class T>
 inline Vector<T>&& Vector<T>::operator=(const Vector<T>&& otherVector)
 {
@@ -110,7 +106,7 @@ inline Vector<T>&& Vector<T>::operator=(const Vector<T>&& otherVector)
 	return *this;
 }
 
-
+////////////////////////////////////////////// Destructor /////////////////////////////////////////////////////////////////////////////
 template<class T>
 inline Vector<T>::~Vector() noexcept
 {
@@ -118,6 +114,7 @@ inline Vector<T>::~Vector() noexcept
 	delete[] this->m_Data;
 }
 
+////////////////////////////////////////////// Capacity And Size Operations ///////////////////////////////////////////////////////////
 template<class T>
 inline size_t Vector<T>::size() const
 {
@@ -190,6 +187,7 @@ inline void Vector<T>::Shrink_To_Fit()
 	m_Capacity = m_Size;
 }
 
+////////////////////////////////////////////// Instance Methods (Modifiers) /////////////////////////////////////////////////////////////////////////////
 template<class T>
 inline const T& Vector<T>::Push_Back(const T& element)
 {
@@ -277,6 +275,7 @@ inline void Vector<T>::Clear()
 	m_Size = 0;
 }
 
+////////////////////////////////////////////// Modifiers Based Iterators /////////////////////////////////////////////////////////////////////////////
 template<class T>
 inline T Vector<T>::Erase(const size_t& index)
 {
@@ -438,12 +437,82 @@ void Vector<T>::Insert(iterator pos, std::initializer_list<T> elements)
 	m_Size = newSize;
 }
 
+/////////////////////////////////////////////////// Element Access Operations /////////////////////////////////////////////////////////////////////////////
+template<class T>
+inline const T& Vector<T>::At(size_t index) const
+{
+	return (*this)[index];
+}
+
+template<class T>
+inline T& Vector<T>::At(size_t index)
+{
+	return (*this)[index];
+}
+
+template<class T>
+inline T& Vector<T>::Back()
+{
+	// if vector is empty throw out of range excpetion
+	if (m_Size == 0)
+	{
+		throw std::out_of_range("Invalid range: vector is empty!");
+	}
+
+	return m_Data[m_Size - 1];
+	
+}
+
+template<class T>
+inline const T& Vector<T>::Back() const
+{
+	// if vector is empty throw out of range excpetion
+	if (m_Size == 0)
+	{
+		throw std::out_of_range("Invalid range: vector is empty!");
+	}
+
+	return m_Data[m_Size - 1];
+}
+
+template<class T>
+inline T& Vector<T>::Front()
+{
+	// if vector is empty throw out of range excpetion
+	if (m_Size == 0)
+	{
+		throw std::out_of_range("Invalid range: vector is empty!");
+	}
+
+	return m_Data[0];
+}
+
+template <class T>
+inline const T& Vector<T>::Front() const
+{
+	if (m_Size == 0)
+	{
+		throw std::out_of_range("Invalid range: vector is empty!");
+	}
+
+	return m_Data[0];
+}
+
+template<class T>
+inline T* Vector<T>::Data()
+{
+	// works as a getter method of m_Data;
+	return this->m_Data;
+}
 
 
+template <class T>
+inline const T* Vector<T>::Data() const
+{
+	return this->m_Data;
+}
 
-
-
-////////////////////////////////////////////// Operators Overloadings //////////////////////
+////////////////////////////////////////////// Operators Overloadings (Subcipting  operators) /////////////////////////////////////////////////////////////////////////////
 template<class T>
 inline const T& Vector<T>::operator[](size_t index) const
 {
@@ -464,6 +533,8 @@ inline T& Vector<T>::operator[](size_t index)
 	}
 	return m_Data[index];
 }
+
+////////////////////////////////////////////// Operators Overloadings (Comparison operators) /////////////////////////////////////////////////////////////////////////////
 template<class T>
 bool Vector<T>::operator<(const Vector<T>& otherVector) const
 {
@@ -542,7 +613,7 @@ bool Vector<T>::operator!=(const Vector<T>& otherVector) const
 	return !(*this == otherVector);
 }
 
-
+////////////////////////////////////////////// Operators Overloadings (Arithmatic operators) /////////////////////////////////////////////////////////////////////////////
 template<class T>
 Vector<T> Vector<T>::operator+(const Vector<T>& otherVector) const
 {
@@ -649,8 +720,6 @@ inline Vector<T> Vector<T>::operator*(const T& scalar) const
 
 }
 
-
-
 template<class T>
 Vector<T> Vector<T>::operator/(const Vector<T>& otherVector) const
 {
@@ -696,8 +765,7 @@ inline Vector<T> Vector<T>::operator/(const T& scalar)const
 }
 
 
-
-/////////////////////////////////////////////// Iterators ////////////////////////////////////
+///////////////////////////////////////////////////// Iterators  /////////////////////////////////////////////////////////////////////////////
 template<class T>
 inline typename Vector<T>::iterator Vector<T>::begin()
 {
@@ -710,7 +778,7 @@ inline typename Vector<T>::iterator Vector<T>::end()
 	return iterator(this->m_Data + m_Size);
 }
 
-////////////////////////////////////////////// Helper Methods //////////////////////////////
+//////////////////////////////////////////////////// Helper Methods /////////////////////////////////////////////////////
 template<class T>
 void Vector<T>::ReAlloc(const size_t newCapacity)
 {
@@ -759,78 +827,4 @@ void Vector<T>::ReAlloc(const size_t newCapacity, const T& defaultValue)
 	this->m_Data = newBlock;
 	std::fill((m_Data + m_Size), (m_Data + newCapacity), defaultValue);
 	this->m_Capacity = newCapacity;
-}
-
-template<class T>
-inline const T& Vector<T>::At(size_t index) const
-{
-	return (*this)[index];
-}
-
-template<class T>
-inline T& Vector<T>::At(size_t index)
-{
-	return (*this)[index];
-}
-
-template<class T>
-inline T& Vector<T>::Back()
-{
-	// if vector is empty throw out of range excpetion
-	if (m_Size == 0)
-	{
-		throw std::out_of_range("Invalid range: vector is empty!");
-	}
-
-	return m_Data[m_Size - 1];
-	
-}
-
-template<class T>
-inline const T& Vector<T>::Back() const
-{
-	// if vector is empty throw out of range excpetion
-	if (m_Size == 0)
-	{
-		throw std::out_of_range("Invalid range: vector is empty!");
-	}
-
-	return m_Data[m_Size - 1];
-}
-
-template<class T>
-inline T& Vector<T>::Front()
-{
-	// if vector is empty throw out of range excpetion
-	if (m_Size == 0)
-	{
-		throw std::out_of_range("Invalid range: vector is empty!");
-	}
-
-	return m_Data[0];
-}
-
-template <class T>
-inline const T& Vector<T>::Front() const
-{
-	if (m_Size == 0)
-	{
-		throw std::out_of_range("Invalid range: vector is empty!");
-	}
-
-	return m_Data[0];
-}
-
-template<class T>
-inline T* Vector<T>::Data()
-{
-	// works as a getter method of m_Data;
-	return this->m_Data;
-}
-
-
-template <class T>
-inline const T* Vector<T>::Data() const
-{
-	return this->m_Data;
 }
