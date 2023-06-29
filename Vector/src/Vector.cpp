@@ -90,7 +90,7 @@ inline Vector<T>& Vector<T>::operator=(const Vector<T>& otherVector) noexcept
 }
 
 template<class T>
-inline Vector<T>&& Vector<T>::operator=(const Vector<T>&& otherVector)
+inline Vector<T>& Vector<T>::operator=(Vector<T>&& otherVector)
 {
 	// if both notSharing same memeory
 	if (this != &otherVector)

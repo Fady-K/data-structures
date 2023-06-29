@@ -4,6 +4,7 @@
 #include <exception>
 #include <stdexcept>
 #include "../Iterator/Iterator.hpp"
+#include "../exceptions/VectorException.hpp"
 
 template<class T = int>
 class Vector
@@ -22,12 +23,12 @@ private:
 public:
 	explicit Vector();												// default constructor
 	Vector(size_t size, const T& defaultValue=0);					// parametrized constructor
-	explicit Vector(std::initializer_list<T> values);						// initialize from initializer list
+	explicit Vector(std::initializer_list<T> values);				// initialize from initializer list
 	Vector(const Vector<T>& otherVector);							// default copy constructor ( deep copy )
 	Vector(Vector<T>&&) noexcept;									// move constructor
 	Vector<T>& operator=(const Vector<T>&) noexcept;				// copy assignment operator
-	Vector<T>&& operator=(const Vector<T>&&);						// move assignment operator
-	~Vector() noexcept;														// destructor
+	Vector<T>& operator=(Vector<T>&&);								// move assignment operator
+	~Vector() noexcept;												// destructor
 
 
 	// Capacity, Size
