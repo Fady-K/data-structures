@@ -148,7 +148,7 @@ inline bool Vector<T>::Empty() const
 template<class T>
 inline bool Vector<T>::Full() const
 {
-	return m_Size == m_Capacity;
+	return m_Size >= m_Capacity;
 }
 
 template<class T>
