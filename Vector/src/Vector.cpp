@@ -247,6 +247,9 @@ template<class T>
 inline void Vector<T>::Resize(size_t newSize)
 {
 	ReAlloc(newSize);
+
+	// now update the size
+	this->m_Size = newSize;
 	
 }
 
@@ -254,6 +257,9 @@ template<class T>
 inline void Vector<T>::Resize(size_t newSize, const T& defaultValue)
 {
 	ReAlloc(newSize, defaultValue);
+
+	// now update the size
+	this->m_Size = newSize;
 }
 
 template<class T>
@@ -792,7 +798,6 @@ void Vector<T>::ReAlloc(const size_t newCapacity)
 	if (newCapacity <= this->m_Capacity) 
 	{
 		this->m_Size = newCapacity;
-		this->m_Capacity = m_Size;
 		return;
 	}
 	
@@ -817,7 +822,6 @@ void Vector<T>::ReAlloc(const size_t newCapacity, const T& defaultValue)
 	if (newCapacity <= this->m_Capacity)
 	{
 		this->m_Size = newCapacity;
-		this->m_Capacity = m_Size;
 		return;
 	}
 
