@@ -218,7 +218,7 @@ inline void Vector<T>::Push_Back(T&& element)
 		ReAlloc(m_Capacity + m_Capacity / 2);
 	}
 
-	new (&m_Data[m_Size]) T(std::move(element));
+	new (&m_Data[m_Size++]) T(std::move(element));
 }
 
 template<class T>
