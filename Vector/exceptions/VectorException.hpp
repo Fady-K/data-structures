@@ -13,6 +13,8 @@ protected:
 public:
     explicit VectorException() noexcept;                                                 // default constructor
     VectorException(const std::string& t_Msg) noexcept;                                  // parametrized constructor
+    VectorException(const VectorException& otherException) noexcept;                     // default copy constructor
+    VectorException& operator=(const VectorException& otherException) noexcept;          // copy assignment operator
     ~VectorException() noexcept;                                                         // destructor
 
     /* Setters and Getters */
