@@ -1,14 +1,37 @@
+/**
+ * @file VectorUnitTest.cpp
+ * @author Fady Kamal (popfadykamal151617@gmail.com)
+ * @brief This file contains unit testing of the vector class.
+ * @details It includes test cases for constructors, assignment operators (copy, move), destructor,
+ * capacity and size opertions, vector methods and vector based iterators ... etc
+ * @date 2023-06-30
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
 #include <gtest/gtest.h>
 #include "include/Vector.hpp"
 
-
-// Test fixture for Vector class
+/**
+ * @class VectorTest
+ * @brief Test fixture for the Vector class.
+ *
+ * This test fixture provides a common setup and teardown for the tests
+ * related to the Vector class. It also includes a helper function to check
+ * if two vectors are equal.
+ */
 class VectorTest : public testing::Test {
 protected:
-    Vector<int> v;
+    Vector<int> v;  /**< The Vector object used for testing. */
 
+    /**
+     * @brief Set up the test fixture.
+     *
+     * This function is called before each test case. It sets up any common
+     * resources needed for the tests, such as initializing the Vector object
+     * with some elements.
+     */
     void SetUp() override {
-        // Set up any common resources needed for the tests
         v.Push_Back(1);
         v.Push_Back(2);
         v.Push_Back(3);
@@ -16,12 +39,26 @@ protected:
         v.Push_Back(5);
     }
 
+    /**
+     * @brief Tear down the test fixture.
+     *
+     * This function is called after each test case. It cleans up any shared
+     * resources and resets the Vector object.
+     */
     void TearDown() override {
-        // Clean up any shared resources after the tests
         v.Clear();
     }
 
-    // Helper function to check if two vectors are equal
+    /**
+     * @brief Check if two vectors are equal.
+     * @param vec1 The first vector to compare.
+     * @param vec2 The second vector to compare.
+     * @return True if the vectors are equal, False otherwise.
+     *
+     * This helper function compares two vectors for equality by checking their
+     * sizes and elements. It returns true if the sizes are equal and all elements
+     * are equal at corresponding indices.
+     */
     template <class T>
     bool vectorsAreEqual(const Vector<T>& vec1, const Vector<T>& vec2) const {
         if (vec1.size() != vec2.size()) {
@@ -38,7 +75,7 @@ protected:
     }
 };
 
-////////////////////////////////////////////////////////////// Constructors  ////////////////////////////////////
+//////////////////////////////////////////////////////////// Constructors ///////// ////////////////////////////////////////////////////////////
 // Test default constructor
 TEST_F(VectorTest, DefaultConstructor) {
     Vector<int> v;
