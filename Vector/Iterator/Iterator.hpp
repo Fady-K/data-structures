@@ -1,6 +1,6 @@
 /**
  * @file Iterator.hpp
- * @author Fady Kamal (popfadykamal151617@gmail.com)
+ * @author Fady Kamal (popfadykama151617@gmail.com)
  * @brief This file is the header file of Iterator class.
  * @details It contains standerd methods (operators), whether dereferencing, arrow, arithmatic, comparison..etc
  * @date 2023-07-01
