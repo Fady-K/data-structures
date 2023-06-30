@@ -75,6 +75,7 @@ protected:
     }
 };
 
+
 //////////////////////////////////////////////////////////// Constructors ///////// ////////////////////////////////////////////////////////////
 /**
  * @brief Test case for the default constructor of the Vector class.
@@ -145,6 +146,7 @@ TEST_F(VectorTest, MoveConstructor) {
     EXPECT_EQ(v.size(), moved.size());
     EXPECT_EQ(0, original.size()); // After move, the source vector should be empty
 }
+
 
 //////////////////////////////////////////////////////////// Assignment Operators(copy, move) ////////////////////////////////////////////////////////////
 /**
@@ -303,6 +305,7 @@ TEST_F(VectorTest, Clear) {
     EXPECT_EQ(0, v.size());
     EXPECT_EQ(6, v.capacity()); // Capacity should remain unchanged
 }
+
 
 //////////////////////////////////////////////////////////// Modifiers ///////////////////////////////////////////////////////////////////////
 /**
@@ -562,9 +565,15 @@ TEST_F(VectorTest, InsertInitializerList) {
 
 
 //////////////////////////////////////////////////////////// Element Access Operations ////////////////////////////////////////////////////////////
-// Test At(size_t index) const
+/**
+ * @brief Test case for the At(size_t index) const method of the Vector class,
+ *        ensuring correct access to an element at a specific index.
+ */
 TEST_F(VectorTest, AtConst) {
+    // Arrange
     const Vector<int>& constVec = v;
+
+    // Assert
     EXPECT_EQ(1, constVec.At(0));
     EXPECT_EQ(2, constVec.At(1));
     EXPECT_EQ(3, constVec.At(2));
@@ -575,8 +584,12 @@ TEST_F(VectorTest, AtConst) {
     EXPECT_THROW(constVec.At(5), std::invalid_argument);
 }
 
-// Test At(size_t index)
+/**
+ * @brief Test case for the At(size_t index) method of the Vector class,
+ *        ensuring correct access to an element at a specific index.
+ */
 TEST_F(VectorTest, At) {
+    // Assert
     EXPECT_EQ(1, v.At(0));
     EXPECT_EQ(2, v.At(1));
     EXPECT_EQ(3, v.At(2));
@@ -587,8 +600,12 @@ TEST_F(VectorTest, At) {
     EXPECT_THROW(v.At(5), std::invalid_argument);
 }
 
-// Test Back()
+/**
+ * @brief Test case for the Back() method of the Vector class,
+ *        ensuring correct access to the last element of the vector.
+ */
 TEST_F(VectorTest, Back) {
+    // Assert
     EXPECT_EQ(5, v.Back());
 
     // Modify back element
@@ -596,14 +613,24 @@ TEST_F(VectorTest, Back) {
     EXPECT_EQ(10, v.Back());
 }
 
-// Test Back() const
+/**
+ * @brief Test case for the Back() const method of the Vector class,
+ *        ensuring correct access to the last element of a const vector.
+ */
 TEST_F(VectorTest, BackConst) {
+    // Arrange
     const Vector<int>& constVec = v;
+
+    // Assert
     EXPECT_EQ(5, constVec.Back());
 }
 
-// Test Front()
+/**
+ * @brief Test case for the Front() method of the Vector class,
+ *        ensuring correct access to the first element of the vector.
+ */
 TEST_F(VectorTest, Front) {
+    // Assert
     EXPECT_EQ(1, v.Front());
 
     // Modify front element
@@ -611,15 +638,27 @@ TEST_F(VectorTest, Front) {
     EXPECT_EQ(20, v.Front());
 }
 
-// Test Front() const
+/**
+ * @brief Test case for the Front() const method of the Vector class,
+ *        ensuring correct access to the first element of a const vector.
+ */
 TEST_F(VectorTest, FrontConst) {
+    // Arrange
     const Vector<int>& constVec = v;
+
+    // Assert
     EXPECT_EQ(1, constVec.Front());
 }
 
-// Test Data()
+/**
+ * @brief Test case for the Data() method of the Vector class,
+ *        ensuring correct access to the underlying data of the vector.
+ */
 TEST_F(VectorTest, Data) {
+    // Arrange
     int* dataPtr = v.Data();
+
+    // Assert
     EXPECT_EQ(1, dataPtr[0]);
     EXPECT_EQ(2, dataPtr[1]);
     EXPECT_EQ(3, dataPtr[2]);
@@ -631,10 +670,16 @@ TEST_F(VectorTest, Data) {
     EXPECT_EQ(30, v[2]);
 }
 
-// Test Data() const
+/**
+ * @brief Test case for the Data() const method of the Vector class,
+ *        ensuring correct access to the underlying data of a const vector.
+ */
 TEST_F(VectorTest, DataConst) {
+    // Arrange
     const Vector<int>& constVec = v;
     const int* dataPtr = constVec.Data();
+
+    // Assert
     EXPECT_EQ(1, dataPtr[0]);
     EXPECT_EQ(2, dataPtr[1]);
     EXPECT_EQ(3, dataPtr[2]);
@@ -644,9 +689,15 @@ TEST_F(VectorTest, DataConst) {
 
 
 //////////////////////////////////////////////////////////// Subscripting Operators ////////////////////////////////////////////////////////////
-// Test operator[](size_t index) const
+/**
+ * @brief Test case for the operator[](size_t index) const method of the Vector class,
+ *        ensuring correct access to an element at a specific index using the subscript operator.
+ */
 TEST_F(VectorTest, SubscriptOperatorConst) {
+    // Arrange
     const Vector<int>& constVec = v;
+
+    // Assert
     EXPECT_EQ(1, constVec[0]);
     EXPECT_EQ(2, constVec[1]);
     EXPECT_EQ(3, constVec[2]);
@@ -657,8 +708,12 @@ TEST_F(VectorTest, SubscriptOperatorConst) {
     EXPECT_THROW(constVec[5], VectorException);
 }
 
-// Test operator[](size_t index)
+/**
+ * @brief Test case for the operator[](size_t index) method of the Vector class,
+ *        ensuring correct access to an element at a specific index using the subscript operator.
+ */
 TEST_F(VectorTest, SubscriptOperator) {
+    // Assert
     EXPECT_EQ(1, v[0]);
     EXPECT_EQ(2, v[1]);
     EXPECT_EQ(3, v[2]);
@@ -670,13 +725,17 @@ TEST_F(VectorTest, SubscriptOperator) {
 }
 
 
-
 //////////////////////////////////////////////////////////// Comparison Operators ////////////////////////////////////////////////////////////
-// Test operator<(const Vector<T>& otherVector) const
+/**
+ * @brief Test case for the operator<(const Vector<T>& otherVector) const method of the Vector class,
+ *        ensuring correct comparison of vectors using the less than operator.
+ */
 TEST_F(VectorTest, LessThanOperator) {
+    // Arrange
     Vector<int> smallerVec{ 1, 2, 3, 4 };
     Vector<int> largerVec{ 1, 2, 3, 4, 5 };
 
+    // Assert
     EXPECT_TRUE(smallerVec < v);
     EXPECT_FALSE(v < smallerVec);
     EXPECT_FALSE(v < v);
@@ -684,11 +743,16 @@ TEST_F(VectorTest, LessThanOperator) {
     EXPECT_FALSE(largerVec < smallerVec);
 }
 
-// Test operator>(const Vector<T>& otherVector) const
+/**
+ * @brief Test case for the operator>(const Vector<T>& otherVector) const method of the Vector class,
+ *        ensuring correct comparison of vectors using the greater than operator.
+ */
 TEST_F(VectorTest, GreaterThanOperator) {
+    // Arrange
     Vector<int> smallerVec{ 1, 2, 3, 4 };
     Vector<int> largerVec{ 1, 2, 3, 4, 5 };
 
+    // Assert
     EXPECT_FALSE(smallerVec > v);
     EXPECT_TRUE(v > smallerVec);
     EXPECT_FALSE(v > v);
@@ -696,21 +760,31 @@ TEST_F(VectorTest, GreaterThanOperator) {
     EXPECT_TRUE(largerVec > smallerVec);
 }
 
-// Test operator==(const Vector<T>& otherVector) const
+/**
+ * @brief Test case for the operator==(const Vector<T>& otherVector) const method of the Vector class,
+ *        ensuring correct comparison of vectors using the equality operator.
+ */
 TEST_F(VectorTest, EqualityOperator) {
+    // Arrange
     Vector<int> equalVec{ 1, 2, 3, 4, 5 };
     Vector<int> unequalVec{ 1, 2, 3, 4 };
 
+    // Assert
     EXPECT_TRUE(v == v);
     EXPECT_TRUE(equalVec == v);
     EXPECT_FALSE(unequalVec == v);
 }
 
-// Test operator<=(const Vector<T>& otherVector) const
+/**
+ * @brief Test case for the operator<=(const Vector<T>& otherVector) const method of the Vector class,
+ *        ensuring correct comparison of vectors using the less than or equal to operator.
+ */
 TEST_F(VectorTest, LessThanOrEqualOperator) {
+    // Arrange
     Vector<int> smallerVec{ 1, 2, 3, 4 };
     Vector<int> largerVec{ 1, 2, 3, 4, 5 };
 
+    // Assert
     EXPECT_TRUE(smallerVec <= v);
     EXPECT_FALSE(v <= smallerVec);
     EXPECT_TRUE(v <= v);
@@ -718,11 +792,16 @@ TEST_F(VectorTest, LessThanOrEqualOperator) {
     EXPECT_FALSE(largerVec <= smallerVec);
 }
 
-// Test operator>=(const Vector<T>& otherVector) const
+/**
+ * @brief Test case for the operator>=(const Vector<T>& otherVector) const method of the Vector class,
+ *        ensuring correct comparison of vectors using the greater than or equal to operator.
+ */
 TEST_F(VectorTest, GreaterThanOrEqualOperator) {
+    // Arrange
     Vector<int> smallerVec{ 1, 2, 3, 4 };
     Vector<int> largerVec{ 1, 2, 3, 4, 5 };
 
+    // Assert
     EXPECT_FALSE(smallerVec >= v);
     EXPECT_TRUE(v >= smallerVec);
     EXPECT_TRUE(v >= v);
@@ -730,11 +809,16 @@ TEST_F(VectorTest, GreaterThanOrEqualOperator) {
     EXPECT_TRUE(largerVec >= smallerVec);
 }
 
-// Test operator!=(const Vector<T>& otherVector) const
+/**
+ * @brief Test case for the operator!=(const Vector<T>& otherVector) const method of the Vector class,
+ *        ensuring correct comparison of vectors using the not equal to operator.
+ */
 TEST_F(VectorTest, NotEqualOperator) {
+    // Arrange
     Vector<int> equalVec{ 1, 2, 3, 4, 5 };
     Vector<int> unequalVec{ 1, 2, 3, 4 };
 
+    // Assert
     EXPECT_FALSE(v != v);
     EXPECT_FALSE(equalVec != v);
     EXPECT_TRUE(unequalVec != v);
@@ -742,123 +826,207 @@ TEST_F(VectorTest, NotEqualOperator) {
 
 
 //////////////////////////////////////////////////////////// Arithmatic Operators ////////////////////////////////////////////////////////////
-// Test operator+(const Vector<T>& otherVector) const
+/**
+ * @brief Test case for the operator+(const Vector<T>& otherVector) const method of the Vector class,
+ *        ensuring correct addition of vectors.
+ */
 TEST_F(VectorTest, AdditionOperator_Vector) {
+    // Arrange
     Vector<int> otherVec{ 6, 7, 8, 9, 10 };
     Vector<int> expected{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 
+    // Act
     Vector<int> result = v + otherVec;
 
+    // Assert
     EXPECT_EQ(result, expected);
 }
-// Test operator+(const T& scalar) const
+
+/**
+ * @brief Test case for the operator+(const T& scalar) const method of the Vector class,
+ *        ensuring correct addition of a scalar to each element of the vector.
+ */
 TEST_F(VectorTest, AdditionOperator_Scalar) {
+    // Arrange
     int scalar = 5;
     Vector<int> expected{ 6, 7, 8, 9, 10 };
 
+    // Act
     Vector<int> result = v + scalar;
 
+    // Assert
     EXPECT_EQ(result, expected);
 }
 
-// Test operator-(const Vector<T>& otherVector) const
+/**
+ * @brief Test case for the operator-(const Vector<T>& otherVector) const method of the Vector class,
+ *        ensuring correct subtraction of vectors.
+ */
 TEST_F(VectorTest, SubtractionOperator_Vector) {
+    // Arrange
     Vector<int> otherVec{ 5, 4, 3, 2, 1 };
     Vector<int> expected{ -4, -2, 0, 2, 4 };
+
+    // Act
     Vector<int> result = v - otherVec;
+
+    // Assert
     EXPECT_EQ(result, expected);
 
-    otherVec = { 5, 4, 3, 2, 1, 5};
-    expected = { -4, -2, 0, 2, 4, -5};
+    // Arrange
+    otherVec = { 5, 4, 3, 2, 1, 5 };
+    expected = { -4, -2, 0, 2, 4, -5 };
+
+    // Act
     result = v - otherVec;
+
+    // Assert
     EXPECT_EQ(result, expected);
 
+    // Arrange
     v.Push_Back(5);
-    otherVec = { 5, 4, 3, 2, 1};
+    otherVec = { 5, 4, 3, 2, 1 };
     expected = { -4, -2, 0, 2, 4, 5 };
+
+    // Act
     result = v - otherVec;
+
+    // Assert
     EXPECT_EQ(result, expected);
 }
-//
-// Test operator-(const T& scalar) const
+
+/**
+ * @brief Test case for the operator-(const T& scalar) const method of the Vector class,
+ *        ensuring correct subtraction of a scalar from each element of the vector.
+ */
 TEST_F(VectorTest, SubtractionOperator_Scalar) {
+    // Arrange
     int scalar = 1;
     Vector<int> expected{ 0, 1, 2, 3, 4 };
 
+    // Act
     Vector<int> result = v - scalar;
 
+    // Assert
     EXPECT_EQ(result, expected);
 }
 
-// Test operator*(const Vector<T>& otherVector) const
+/**
+ * @brief Test case for the operator*(const Vector<T>& otherVector) const method of the Vector class,
+ *        ensuring correct multiplication of vectors.
+ */
 TEST_F(VectorTest, MultiplicationOperator_Vector) {
+    // Arrange
     Vector<int> otherVec{ 1, 2, 3, 4, 5 };
     Vector<int> expected{ 1, 4, 9, 16, 25 };
 
+    // Act
     Vector<int> result = v * otherVec;
 
+    // Assert
     EXPECT_EQ(result, expected);
 
-    // if both vector doesn't have the same size throw invalid argument
+    // Arrange
     otherVec = { 1, 2, 3, 4, 5, 6 };
+
+    // Act and Assert
     EXPECT_THROW(v * otherVec, std::invalid_argument);
 }
 
-// Test operator*(const T& scalar) const
+/**
+ * @brief Test case for the operator*(const T& scalar) const method of the Vector class,
+ *        ensuring correct multiplication of each element of the vector by a scalar.
+ */
 TEST_F(VectorTest, MultiplicationOperator_Scalar) {
+    // Arrange
     int scalar = 2;
     Vector<int> expected{ 2, 4, 6, 8, 10 };
 
+    // Act
     Vector<int> result = v * scalar;
 
+    // Assert
     EXPECT_EQ(result, expected);
 }
 
-// Test operator/(const Vector<T>& otherVector) const
+/**
+ * @brief Test case for the operator/(const Vector<T>& otherVector) const method of the Vector class,
+ *        ensuring correct division of vectors.
+ */
 TEST_F(VectorTest, DivisionOperator_Vector) {
+    // Arrange
     Vector<int> otherVec{ 1, 2, 3, 4, 5 };
     Vector<int> expected{ 1, 1, 1, 1, 1 };
 
+    // Act
     Vector<int> result = v / otherVec;
 
+    // Assert
     EXPECT_EQ(result, expected);
 
-    // if both vector doesn't have the same size throw invalid argument
-    otherVec = { 1, 1, 1, 1, 1, 1};
+    // Arrange
+    otherVec = { 1, 1, 1, 1, 1, 1 };
+
+    // Act and Assert
     EXPECT_THROW(v / otherVec, std::invalid_argument);
 }
-//
-// Test operator/(const T& scalar) const
+
+/**
+ * @brief Test case for the operator/(const T& scalar) const method of the Vector class,
+ *        ensuring correct division of each element of the vector by a scalar.
+ */
 TEST_F(VectorTest, DivisionOperator_Scalar) {
+    // Arrange
     int scalar = 2;
     Vector<int> expected{ 0, 1, 1, 2, 2 };
 
+    // Act
     Vector<int> result = v / scalar;
 
+    // Assert
     EXPECT_EQ(result, expected);
 }
 
+
 //////////////////////////////////////////////////////////// Iterators ////////////////////////////////////////////////////////////////////////
+/**
+ * @brief Test case for the begin() method of the Vector class, ensuring it returns the iterator to the first element.
+ */
 TEST_F(VectorTest, BeginIterator) {
+    // Act
     typename Vector<int>::iterator it = v.begin();
 
+    // Assert
     EXPECT_EQ(*it, 1);
 }
 
-// Test end()
+/**
+ * @brief Test case for the end() method of the Vector class, ensuring it returns the iterator to the element past the last.
+ */
 TEST_F(VectorTest, EndIterator) {
+    // Act
     typename Vector<int>::iterator it = v.end();
 
     // It will return pointer to element past the last
+    // Assert
     EXPECT_EQ(*(it - 1), v.Back());
 }
 
 
 
-
-int main(int argc, char** argv) {
+///////////////////////////////////////////////////// Entry Point (testing starts and ends here) ////////////////////////////////////////////////////////////////////////
+/**
+ * The main function for running Google Test.
+ *
+ * @param argc The number of command-line arguments.
+ * @param argv An array of C-style strings representing the command-line arguments.
+ * @return An integer representing the exit code of the program. It indicates whether all the tests passed or if there were any failures.
+ */
+int main(int argc, char** argv) 
+{
+    // Initialize Google Test with the command-line arguments
     testing::InitGoogleTest(&argc, argv);
+
+    // Run all the registered tests
     return RUN_ALL_TESTS();
-
 }
-
