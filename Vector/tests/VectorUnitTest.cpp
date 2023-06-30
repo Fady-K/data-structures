@@ -76,7 +76,7 @@ protected:
 };
 
 
-//////////////////////////////////////////////////////////// Constructors ///////// ////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////// Constructors /////////////////////////////////////////////////////////////////////
 /**
  * @brief Test case for the default constructor of the Vector class.
  */
@@ -581,7 +581,7 @@ TEST_F(VectorTest, AtConst) {
     EXPECT_EQ(5, constVec.At(4));
 
     // Out of range index
-    EXPECT_THROW(constVec.At(5), std::invalid_argument);
+    EXPECT_THROW(constVec.At(5), VectorException);
 }
 
 /**
@@ -597,7 +597,7 @@ TEST_F(VectorTest, At) {
     EXPECT_EQ(5, v.At(4));
 
     // Out of range index
-    EXPECT_THROW(v.At(5), std::invalid_argument);
+    EXPECT_THROW(v.At(5), VectorException);
 }
 
 /**
@@ -930,7 +930,7 @@ TEST_F(VectorTest, MultiplicationOperator_Vector) {
     otherVec = { 1, 2, 3, 4, 5, 6 };
 
     // Act and Assert
-    EXPECT_THROW(v * otherVec, std::invalid_argument);
+    EXPECT_THROW(v * otherVec, VectorException);
 }
 
 /**
@@ -968,7 +968,7 @@ TEST_F(VectorTest, DivisionOperator_Vector) {
     otherVec = { 1, 1, 1, 1, 1, 1 };
 
     // Act and Assert
-    EXPECT_THROW(v / otherVec, std::invalid_argument);
+    EXPECT_THROW(v / otherVec, VectorException);
 }
 
 /**
