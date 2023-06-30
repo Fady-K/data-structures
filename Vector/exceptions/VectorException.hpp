@@ -9,6 +9,9 @@
  */
 class VectorException : public std::exception
 {
+protected:
+    std::string m_Msg; /**< The error message. */
+
 public:
     /**
      * @brief Default constructor.
@@ -56,9 +59,6 @@ public:
      * @return The error message as a C-style string.
      */
     const char* what() const noexcept override;
-
-private:
-    std::string m_Msg; /**< The error message. */
 };
 
 
