@@ -428,10 +428,18 @@ TEST_F(VectorTest, Swap) {
 
 
 //////////////////////////////////////////////////////////// Modifiers Based Iterators ////////////////////////////////////////////////////////////
-// Test Erase(const size_t& index)
+/**
+ * @brief Test case for the Erase(const size_t& index) method of the Vector class,
+ *        ensuring correct erasing of an element at a specific index.
+ */
 TEST_F(VectorTest, EraseIndex) {
+    // Arrange
     size_t index = 2;
+
+    // Act
     int erasedElement = v.Erase(index);
+
+    // Assert
     EXPECT_EQ(3, erasedElement);
     EXPECT_EQ(4, v.size());
     EXPECT_EQ(6, v.capacity());
@@ -441,10 +449,18 @@ TEST_F(VectorTest, EraseIndex) {
     EXPECT_EQ(5, v[3]);
 }
 
-// Test Erase(iterator pos)
+/**
+ * @brief Test case for the Erase(iterator pos) method of the Vector class,
+ *        ensuring correct erasing of an element at a specific iterator position.
+ */
 TEST_F(VectorTest, EraseIterator) {
+    // Arrange
     auto it = v.begin() + 2;
+
+    // Act
     v.Erase(it);
+
+    // Assert
     EXPECT_EQ(4, v.size());
     EXPECT_EQ(6, v.capacity());
     EXPECT_EQ(1, v[0]);
@@ -453,22 +469,38 @@ TEST_F(VectorTest, EraseIterator) {
     EXPECT_EQ(5, v[3]);
 }
 
-// Test Erase(iterator first, iterator last)
+/**
+ * @brief Test case for the Erase(iterator first, iterator last) method of the Vector class,
+ *        ensuring correct erasing of elements in a range specified by two iterators.
+ */
 TEST_F(VectorTest, EraseRange) {
+    // Arrange
     auto first = v.begin() + 1;
     auto last = v.end() - 1;
+
+    // Act
     v.Erase(first, last);
+
+    // Assert
     EXPECT_EQ(2, v.size());
     EXPECT_EQ(6, v.capacity());
     EXPECT_EQ(1, v[0]);
     EXPECT_EQ(5, v[1]);
 }
 
-// Test Insert(const size_t& index, const T& element)
+/**
+ * @brief Test case for the Insert(const size_t& index, const T& element) method of the Vector class,
+ *        ensuring correct insertion of an element at a specific index.
+ */
 TEST_F(VectorTest, InsertIndex) {
+    // Arrange
     size_t index = 2;
     int element = 10;
+
+    // Act
     const int& insertedElement = v.Insert(index, element);
+
+    // Assert
     EXPECT_EQ(element, insertedElement);
     EXPECT_EQ(6, v.size());
     EXPECT_EQ(6, v.capacity());
@@ -480,11 +512,19 @@ TEST_F(VectorTest, InsertIndex) {
     EXPECT_EQ(5, v[5]);
 }
 
-// Test Insert(iterator pos, const T& element)
+/**
+ * @brief Test case for the Insert(iterator pos, const T& element) method of the Vector class,
+ *        ensuring correct insertion of an element at a specific iterator position.
+ */
 TEST_F(VectorTest, InsertIterator) {
+    // Arrange
     auto pos = v.begin() + 2;
     int element = 10;
+
+    // Act
     v.Insert(pos, element);
+
+    // Assert
     EXPECT_EQ(6, v.size());
     EXPECT_EQ(6, v.capacity());
     EXPECT_EQ(1, v[0]);
@@ -495,13 +535,21 @@ TEST_F(VectorTest, InsertIterator) {
     EXPECT_EQ(5, v[5]);
 }
 
-// Test Insert(iterator startPos, std::initializer_list<T> elements)
+/**
+ * @brief Test case for the Insert(iterator startPos, std::initializer_list<T> elements) method of the Vector class,
+ *        ensuring correct insertion of elements from an initializer list at a specific iterator position.
+ */
 TEST_F(VectorTest, InsertInitializerList) {
+    // Arrange
     auto startPos = v.begin() + 2;
     std::initializer_list<int> elements = { 10, 20, 30 };
+
+    // Act
     v.Insert(startPos, elements);
+
+    // Assert
     EXPECT_EQ(8, v.size());
-    EXPECT_EQ(9, v.capacity());     // note old capacity = 6 after reallocationg newCapacity = old + old / 2 = 9
+    EXPECT_EQ(9, v.capacity()); // note: old capacity = 6, after reallocation newCapacity = old + old / 2 = 9
     EXPECT_EQ(1, v[0]);
     EXPECT_EQ(2, v[1]);
     EXPECT_EQ(10, v[2]);
@@ -511,6 +559,7 @@ TEST_F(VectorTest, InsertInitializerList) {
     EXPECT_EQ(4, v[6]);
     EXPECT_EQ(5, v[7]);
 }
+
 
 //////////////////////////////////////////////////////////// Element Access Operations ////////////////////////////////////////////////////////////
 // Test At(size_t index) const
