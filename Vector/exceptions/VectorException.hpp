@@ -1,3 +1,13 @@
+/**
+ * @file VectorException.hpp
+ * @author Fady Kamal (popfadykamal151617@gmail.com)
+ * @brief This is the header file of VectorException class
+ * @details It contains VectorException class which extends the std::excpetion class and overrides its methods.
+ * @date 2023-07-01
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
 #pragma once
 #include <iostream>
 #include <exception>
