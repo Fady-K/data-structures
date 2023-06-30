@@ -76,24 +76,39 @@ protected:
 };
 
 //////////////////////////////////////////////////////////// Constructors ///////// ////////////////////////////////////////////////////////////
-// Test default constructor
+/**
+ * @brief Test case for the default constructor of the Vector class.
+ */
 TEST_F(VectorTest, DefaultConstructor) {
+    // Arrange
     Vector<int> v;
+
+    // Act & Assert
     EXPECT_EQ(0, v.size());
 }
 
-// Test parametrized constructor
+/**
+ * @brief Test case for the parameterized constructor of the Vector class.
+ */
 TEST_F(VectorTest, ParametrizedConstructor) {
+    // Arrange
     Vector<int> v(5, 10);
+
+    // Act & Assert
     EXPECT_EQ(5, v.size());
     for (int i = 0; i < v.size(); ++i) {
         EXPECT_EQ(10, v[i]);
     }
 }
 
-// Test initializer list constructor
+/**
+ * @brief Test case for the initializer list constructor of the Vector class.
+ */
 TEST_F(VectorTest, InitializerListConstructor) {
+    // Arrange
     Vector<int> v{ 1, 2, 3, 4, 5 };
+
+    // Act & Assert
     EXPECT_EQ(5, v.size());
     EXPECT_EQ(1, v[0]);
     EXPECT_EQ(2, v[1]);
@@ -102,183 +117,301 @@ TEST_F(VectorTest, InitializerListConstructor) {
     EXPECT_EQ(5, v[4]);
 }
 
-// Test copy constructor
+/**
+ * @brief Test case for the copy constructor of the Vector class.
+ */
 TEST_F(VectorTest, CopyConstructor) {
+    // Arrange
     Vector<int> copy(v);
+
+    // Act & Assert
     EXPECT_EQ(v.size(), copy.size());
     for (int i = 0; i < v.size(); ++i) {
         EXPECT_EQ(v[i], copy[i]);
     }
 }
 
- //Test move constructor
+/**
+ * @brief Test case for the move constructor of the Vector class.
+ */
 TEST_F(VectorTest, MoveConstructor) {
+    // Arrange
     Vector<int> original(v);
+
+    // Act
     Vector<int> moved(std::move(original));
+
+    // Assert
     EXPECT_EQ(v.size(), moved.size());
     EXPECT_EQ(0, original.size()); // After move, the source vector should be empty
 }
 
 //////////////////////////////////////////////////////////// Assignment Operators(copy, move) ////////////////////////////////////////////////////////////
+/**
+ * @brief Test case for the copy assignment operator of the Vector class.
+ */
 TEST_F(VectorTest, CopyAssignmentOperator) {
+    // Arrange
     Vector<int> vec1{ 1, 2, 3 };
     Vector<int> vec2{ 4, 5 };
 
-    // Copy assign vec1 to vec2
+    // Act: Copy assign vec1 to vec2
     vec2 = vec1;
 
-    // Check if vec2 is equal to vec1
+    // Assert: Check if vec2 is equal to vec1
     ASSERT_TRUE(vectorsAreEqual(vec1, vec2));
 }
 
+/**
+ * @brief Test case for the move assignment operator of the Vector class.
+ */
 TEST_F(VectorTest, MoveAssignmentOperator) {
+    // Arrange
     Vector<int> vec1{ 1, 2, 3 };
     Vector<int> vec2{ 4, 5 };
 
-    // Move assign vec1 to vec2
+    // Act: Move assign vec1 to vec2
     vec2 = std::move(vec1);
 
-    // Check if vec2 has the moved data and vec1 is empty
+    // Assert: Check if vec2 has the moved data and vec1 is empty
     EXPECT_EQ(vec2.size(), 3);
     EXPECT_EQ(vec1.size(), 0);
 }
 
 //////////////////////////////////////////////////////////// Destructor ///////////////////////////////////////////////////////////////////
-TEST_F(VectorTest, Destructor_DeallocatesMemory)
-{
+/**
+ * @brief Test case for the destructor of the Vector class, ensuring proper deallocation of memory.
+ */
+TEST_F(VectorTest, Destructor_DeallocatesMemory) {
+    // Arrange
     // Create a vector
     Vector<int>* vec = new Vector<int>{ 1, 2, 3 };
 
+    // Act
     // Get the pointer to the underlying data
     int* dataPtr = vec->Data();
 
     // Destroy the vector
     delete vec;
 
+    // Assert
     // Check if the memory was properly deallocated using Google Test's memory leak detection
     SUCCEED();  // No memory leaks detected
 }
 
 
 //////////////////////////////////////////////////////////// Capacity And Size ////////////////////////////////////////////////////////////
-// Test size()
+/**
+ * @brief Test case for the size() method of the Vector class, ensuring correct size retrieval.
+ */
 TEST_F(VectorTest, Size) {
+    // Arrange & Act
     EXPECT_EQ(5, v.size());
+
     v.Clear();
+
+    // Assert
     EXPECT_EQ(0, v.size());
 }
 
-// Test capacity()
+/**
+ * @brief Test case for the capacity() method of the Vector class, ensuring correct capacity retrieval.
+ */
 TEST_F(VectorTest, Capacity) {
+    // Arrange & Act
     EXPECT_EQ(6, v.capacity());
+
     v.Reserve(20);
+
+    // Assert
     EXPECT_EQ(20, v.capacity());
+
     v.Reserve(10);
+
+    // Assert
     EXPECT_EQ(20, v.capacity()); // Capacity should remain unchanged
 }
 
-// Test Max_Size()
+/**
+ * @brief Test case for the Max_Size() method of the Vector class, ensuring retrieval of the maximum possible size.
+ */
 TEST_F(VectorTest, MaxSize) {
+    // Arrange & Act
     EXPECT_EQ(std::numeric_limits<size_t>::max(), v.Max_Size());
 }
-//
-// Test Empty()
+
+/**
+ * @brief Test case for the Empty() method of the Vector class, ensuring correct empty state detection.
+ */
 TEST_F(VectorTest, Empty) {
+    // Arrange & Act
     EXPECT_FALSE(v.Empty());
+
     Vector<int> emptyVec;
+
+    // Assert
     EXPECT_TRUE(emptyVec.Empty());
 }
 
-// Test Full()
+/**
+ * @brief Test case for the Full() method of the Vector class, ensuring correct full state detection.
+ */
 TEST_F(VectorTest, Full) {
+    // Arrange & Act
     EXPECT_FALSE(v.Full());
+
     Vector<int> fullVec(5, 10);
+
+    // Assert
     EXPECT_TRUE(fullVec.Full());
 }
 
-// Test Reserve()
+/**
+ * @brief Test case for the Reserve() method of the Vector class, ensuring correct capacity reservation.
+ */
 TEST_F(VectorTest, Reserve) {
+    // Arrange & Act
     v.Reserve(20);
+
+    // Assert
     EXPECT_EQ(5, v.size()); // Size should remain unchanged
     EXPECT_EQ(20, v.capacity());
 }
 
-// Test Shrink_To_Fit()
+/**
+ * @brief Test case for the Shrink_To_Fit() method of the Vector class, ensuring proper shrinking of capacity.
+ */
 TEST_F(VectorTest, ShrinkToFit) {
+    // Arrange & Act
     v.Shrink_To_Fit();
+
+    // Assert
     EXPECT_EQ(5, v.size()); // Size should remain unchanged
     EXPECT_EQ(5, v.capacity());
 }
 
-// Test Clear()
+/**
+ * @brief Test case for the Clear() method of the Vector class, ensuring correct clearing of the vector.
+ */
 TEST_F(VectorTest, Clear) {
+    // Arrange & Act
     EXPECT_EQ(5, v.size());
+
     v.Clear();
+
+    // Assert
     EXPECT_EQ(0, v.size());
     EXPECT_EQ(6, v.capacity()); // Capacity should remain unchanged
 }
-//////////////////////////////////////////////////////////// Modifiers ///////////////////////////////////////////////////////////////////////
 
-// Test Push_Back(const T& element)
+//////////////////////////////////////////////////////////// Modifiers ///////////////////////////////////////////////////////////////////////
+/**
+ * @brief Test case for the Push_Back(const T& element) method of the Vector class,
+ *        ensuring correct insertion of an lvalue element at the back of the vector.
+ */
 TEST_F(VectorTest, PushBackLvalue) {
+    // Arrange
     int element = 10;
+
+    // Act
     const int& pushedElement = v.Push_Back(element);
+
+    // Assert
     EXPECT_EQ(element, pushedElement);
     EXPECT_EQ(6, v.size());
-    EXPECT_EQ(6, v.capacity());         // capacity should remain the same as still their size from the last push_back opertion
+    EXPECT_EQ(6, v.capacity()); // Capacity should remain the same as there is no need to resize
     EXPECT_EQ(element, v[v.size() - 1]);
 }
 
-// Test Push_Back(T&& element)
+/**
+ * @brief Test case for the Push_Back(T&& element) method of the Vector class,
+ *        ensuring correct insertion of an rvalue element at the back of the vector.
+ */
 TEST_F(VectorTest, PushBackRvalue) {
+    // Arrange
     int element = 10;
     int&& rvalueElement = std::move(element);
+
+    // Act
     v.Push_Back(std::move(rvalueElement));
+
+    // Assert
     EXPECT_EQ(6, v.size());
-    EXPECT_EQ(6, v.capacity());     // capacity should remain the same as still their size from the last push_back opertion
+    EXPECT_EQ(6, v.capacity()); // Capacity should remain the same as there is no need to resize
     EXPECT_EQ(10, v[v.size() - 1]);
 }
 
-// Test Pop_Back()
+/**
+ * @brief Test case for the Pop_Back() method of the Vector class, ensuring correct removal of the last element.
+ */
 TEST_F(VectorTest, PopBack) {
+    // Act
     int poppedElement = v.Pop_Back();
+
+    // Assert
     EXPECT_EQ(5, poppedElement);
     EXPECT_EQ(4, v.size());
-    EXPECT_EQ(6, v.capacity());     // capacity should remain the same as still their size from the last push_back opertion
+    EXPECT_EQ(6, v.capacity()); // Capacity should remain the same as there is no need to resize
 }
 
- //Test Resize(size_t newSize)
+/**
+ * @brief Test case for the Resize(size_t newSize) method of the Vector class,
+ *        ensuring correct resizing of the vector.
+ */
 TEST_F(VectorTest, Resize) {
+    // Act
     v.Resize(10);
+
+    // Assert
     EXPECT_EQ(10, v.size());
     EXPECT_EQ(10, v.capacity());
 
+    // Act
     v.Resize(3);
+
+    // Assert
     EXPECT_EQ(3, v.size());
     EXPECT_EQ(10, v.capacity());
 }
 
-// Test Resize(size_t newSize, const T& defaultValue)
+/**
+ * @brief Test case for the Resize(size_t newSize, const T& defaultValue) method of the Vector class,
+ *        ensuring correct resizing of the vector with a default value for the new elements.
+ */
 TEST_F(VectorTest, ResizeWithDefaultValue) {
+    // Arrange
     int defaultValue = 100;
     int oldSize = v.size();
+
+    // Act
     v.Resize(10, defaultValue);
+
+    // Assert
     EXPECT_EQ(10, v.size());
     EXPECT_EQ(10, v.capacity());
-    for (size_t i = oldSize; i < v.size(); ++i) // note resize init the extra size only with default value
-    {
+    for (size_t i = oldSize; i < v.size(); ++i) {
         EXPECT_EQ(defaultValue, v[i]);
     }
 
+    // Act
     v.Resize(3, defaultValue);
+
+    // Assert
     EXPECT_EQ(3, v.size());
     EXPECT_EQ(10, v.capacity());
 }
 
-// Test Swap(Vector<T>& v)
+/**
+ * @brief Test case for the Swap(Vector<T>& v) method of the Vector class, ensuring correct swapping of two vectors.
+ */
 TEST_F(VectorTest, Swap) {
+    // Arrange
     Vector<int> v2{ 100, 200, 300 };
+
+    // Act
     v.Swap(v2);
+
+    // Assert
     EXPECT_EQ(3, v.size());
     EXPECT_EQ(3, v.capacity());
     EXPECT_EQ(5, v2.size());
@@ -292,8 +425,6 @@ TEST_F(VectorTest, Swap) {
     EXPECT_EQ(4, v2[3]);
     EXPECT_EQ(5, v2[4]);
 }
-
-
 
 
 //////////////////////////////////////////////////////////// Modifiers Based Iterators ////////////////////////////////////////////////////////////
