@@ -1,3 +1,13 @@
+/**
+ * @file Vector.hpp
+ * @author Fady Kamal (popfadykamal151617@gmail.com)
+ * @brief This the header file of Vector class.
+ * @details It contains all Vector members.
+ * @version 0.1
+ * @date 2023-07-01
+ * @copyright Copyright (c) 2023
+ * 
+ */
 #pragma once
 #include <initializer_list>
 #include <algorithm>
@@ -72,11 +82,11 @@ public:
 
 
 	// Operators overloadings
-	const T& operator[](size_t index) const;						// supscriping operator ( return const: can't modify any values in vector)
-	T& operator[](size_t index);									// supscipting operator ( return reference to element: able to modify element in vector)
+	const T& operator[](size_t index) const;							// supscriping operator ( return const: can't modify any values in vector)
+	T& operator[](size_t index);										// supscipting operator ( return reference to element: able to modify element in vector)
 
-	bool operator<(const Vector<T>& otherVector) const;				// smaller opeartor	(Comparison  operator)
-	bool operator>(const Vector<T>& otherVector) const;				// greater operator (Comparison  operator)
+	bool operator<(const Vector<T>& otherVector) const;					// smaller opeartor	(Comparison  operator)
+	bool operator>(const Vector<T>& otherVector) const;					// greater operator (Comparison  operator)
 	bool operator==(const Vector<T>& otherVector) const;				// equality operator (Comparison  opeartor)
 	bool operator<=(const Vector<T>& otherVector) const;				// smaller or equal operator (comaprison operator)
 	bool operator>=(const Vector<T>& otherVector) const;				// greater or equal operator (comparison operator)
