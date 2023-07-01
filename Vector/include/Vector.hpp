@@ -55,7 +55,7 @@ public:
 	 * @brief Constructor that initializes the vector with the elements from given initializer list.
 	 * @param values The initializer list containing the elements to be copied to the vector (deep copy).
 	 */
-	explicit Vector(std::initializer_list<T> values);				// initialize from initializer list
+	Vector(std::initializer_list<T> values);						// initialize from initializer list
 
 	/**
 	 * @brief Copy constructor. Constructs a vector by deep copying the elements from another vector.
