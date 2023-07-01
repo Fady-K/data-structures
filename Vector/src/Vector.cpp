@@ -650,7 +650,7 @@ Vector<T> Vector<T>::operator+(const Vector<T>& otherVector) const
 template<class T>
 inline Vector<T> Vector<T>::operator+(const T& scalar) const
 {
-	if (size == 0) { return *this; }
+	if (m_Size == 0) { return *this; }
 	Vector<T> result(this->m_Size);
 	for(size_t i = 0; i < this->m_Size;++i)
 	{
